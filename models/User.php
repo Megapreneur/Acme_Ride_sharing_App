@@ -74,6 +74,12 @@ class User extends \yii\db\ActiveRecord
         $this->uid = Yii::$app->getSecurity()->generatePasswordHash(date('YmdHis').rand(1, 999999));
     }
 
+    public function activate() {
+        $this->status = self::STATUS_ACTIVE;
+        $this->setUid();
+        return $this->save();
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -4,12 +4,11 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
-use app\widgets\Alert;
+use yii\bootstrap5\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
-use app\components\LanguageDropdown;
 
 AppAsset::register($this);
 
@@ -40,26 +39,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-//            ['label' => 'Home', 'url' => ['/site/index']],
-//            ['label' => 'About', 'url' => ['/site/about']],
-//            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-            ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']],
-            ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest
+                ? ['label' => 'Login', 'url' => ['/site/login']]
+                : '<li class="nav-item">'
+                . Html::beginForm(['/site/logout'])
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
+                    ['class' => 'nav-link btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            ),
-            ['label' => LanguageDropdown::label(Yii::$app->language), 'items' => LanguageDropdown::widget()]
-        ],
+        ]
     ]);
     NavBar::end();
     ?>
@@ -67,25 +60,24 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <main id="main" class="flex-shrink-0" role="main">
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?php if(!empty(Yii::$app->session->getFlash('success'))): ?>
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?= Yii::$app->session->getFlash('success') ?>
-            </div>
-        <?php endif; ?>
+        <?php if (!empty($this->params['breadcrumbs'])): ?>
+            <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
+        <?php endif ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
-    </main>
-    <footer class="footer">
-        <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
+</main>
+
+<footer id="footer" class="mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row text-muted">
+            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
+            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
         </div>
-    </footer>
-    <?php $this->endBody() ?>
+    </div>
+</footer>
+
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

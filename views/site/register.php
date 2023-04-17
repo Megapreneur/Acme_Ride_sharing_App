@@ -1,43 +1,41 @@
 <?php
+/** @var yii\web\View $this */
+/** @var yii\bootstrap5\ActiveForm $registerForm */
 
-
-use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+use app\models\User;
 
-
-$this->title =Yii::t('app', 'Sign up');
-
+$this->title = 'Register';
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
 
-<p><?= Yii::t('app', 'Please, register') ?></p>
+<p>Please fill out the following fields to sign up:</p>
 
 <?php $registerForm = ActiveForm::begin([
     'id' => 'register-form',
     'layout' => 'horizontal',
     'fieldConfig' => [
-        'template' => "{label}\n{input}\n{error}",
-        'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-        'inputOptions' => ['class' => 'col-lg-3 form-control'],
-        'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
+        'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-1 control-label'],
     ],
 ]); ?>
+
 <?= $registerForm->errorSummary($newUser) ?>
 <?= $registerForm->field($newUser, 'username')->textInput(['autofocus' => true]) ?>
 <?= $registerForm->field($newUser, 'email')->textInput() ?>
 <?= $registerForm->field($newUser, 'password')->passwordInput(['value' => '']) ?>
 
-<?php //= $form->field($model, 'rememberMe')->checkbox([
+<?php //= $registerForm->field($newUser, 'rememberMe')->checkbox([
 //    'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
 //]) ?>
 
 <div class="form-group">
     <div class="offset-lg-1 col-lg-11">
-        <?= Html::submitButton(Yii::t('app', 'Sign up'), ['class' => 'btn btn-primary', 'name' => 'register-button']) ?>
+        <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary', 'name' => 'register-button']); ?>
+
     </div>
 </div>
 
 <?php ActiveForm::end(); ?>
-
-
