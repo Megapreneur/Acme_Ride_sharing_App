@@ -6,7 +6,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use app\models\User;
 
-$this->title = 'Register';
+$this->title = Yii::t('app', 'Sign up');
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>

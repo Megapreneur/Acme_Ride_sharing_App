@@ -26,7 +26,7 @@ $this->title = 'Login';
         ],
     ]); ?>
 
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
@@ -43,6 +43,8 @@ $this->title = 'Login';
     <?php ActiveForm::end(); ?>
 
     <div class="offset-lg-1" style="color:#999;">
-        <?php echo 'if you don\'t have an account <a href="/index.php?r=site%2Fregister">register here</a>'; ?>
+        <?= Yii::t('app', 'if no account you can {register}', [
+            'register' => Html::a(Yii::t('app', 'register'),['/site/register'])
+        ]) ?>
     </div>
 </div>

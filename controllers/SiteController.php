@@ -83,7 +83,7 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-        $model->password = '';
+//        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -104,8 +104,8 @@ class SiteController extends Controller
             'newUser' => $newUser,
         ]);
     }
-    public function actionActive($user, $token){
-        $userToActivate = User::find()->where(['id' => $user, 'id' => $token])->one();
+    public function actionActivate($user, $token){
+        $userToActivate = User::find()->where(['id' => $user, 'uid' => $token])->one();
         if (empty($userToActivate)){
             throw new NotFoundHttpException('User not found');
         }

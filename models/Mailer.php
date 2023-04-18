@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 class Mailer
 {
     const TYPE_REGISTRATION = 1;
@@ -9,7 +11,7 @@ class Mailer
 
     private static $renderFile;
     private static $renderParams = [];
-    private static $from = ['acmeprojectmailer@gmail.com' => 'Acme mailer'];
+    private static $from = ['megapreneur08@gmail.com' => 'Acme mailer'];
     private static $to;
     private static $subject;
 
